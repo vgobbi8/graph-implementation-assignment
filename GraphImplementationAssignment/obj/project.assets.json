@@ -99,17 +99,17 @@
     ]
   },
   "packageFolders": {
-    "C:\\n": {},
+    "C:\\Users\\Vinicius\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
+      "projectUniqueName": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
       "projectName": "GraphImplementationAssignment",
-      "projectPath": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
-      "packagesPath": "C:\\n",
-      "outputPath": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\obj\\",
+      "projectPath": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
+      "packagesPath": "C:\\Users\\Vinicius\\.nuget\\packages\\",
+      "outputPath": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -170,7 +170,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
