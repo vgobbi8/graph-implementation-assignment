@@ -6,10 +6,5 @@ using System.Threading.Tasks;
 
 namespace GraphImplementationAssignment.Models
 {
-    public class Edge
-    {
-        public string From { get; set; }
-        public string To { get; set; }
-        public int Weight { get; set; }
-    }
+    public record Edge(Vertex To, double Weight);
 }

@@ -6,9 +6,5 @@ using System.Threading.Tasks;
 
 namespace GraphImplementationAssignment.Models
 {
-    public class Vertex
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-    }
+    public sealed record Vertex(string Name);
 }
