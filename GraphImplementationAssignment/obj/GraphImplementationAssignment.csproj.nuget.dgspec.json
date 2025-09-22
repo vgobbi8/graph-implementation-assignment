@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
-        "projectName": "GraphImplementationAssignment",
+        "projectName": "graph",
         "projectPath": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
         "packagesPath": "C:\\Users\\Vinicius\\.nuget\\packages\\",
         "outputPath": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\obj\\",
