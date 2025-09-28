@@ -2,6 +2,10 @@
 
 Este projeto implementa algoritmos clássicos de **Teoria dos Grafos** e lê grafos a partir de arquivos JSON na pasta `graphs/`.
 This project implements classic **Graph Theory** algorithms and reads graphs from JSON files located in the `graphs/` folder.
+> 💻 Um executável para **macOS** já foi gerado e está disponível para download na seção **Releases** do repositório GitHub.
+
+> 💻 A **macOS executable** has already been built and is available for download in the **Releases** section of the GitHub repository.
+
 
 ---
 
