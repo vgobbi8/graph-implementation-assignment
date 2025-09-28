@@ -68,5 +68,81 @@ namespace GraphImplementationAssignment.CLI
             }
             return sum;
         }
+
+        public static void PrintGraphOverview(Graph g)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Graph: {(g.Directed ? "DIRECTED" : "UNDIRECTED")}");
+            Console.ResetColor();
+
+            var vertexCount = g.Vertices.Count;
+            var edgeCount = 0;
+            foreach (var (_, list) in g.AdjList) edgeCount += list.Count;
+            if (!g.Directed) edgeCount /= 2; // undirected stored twice
+
+            Console.WriteLine($"Vertices: {vertexCount}");
+            Console.WriteLine($"Edges:    {edgeCount}");
+        }
+
+        public static void PrintAdjacencyList(Graph g, bool showWeights = true)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Adjacency List:");
+            foreach (var (u, edges) in g.AdjList)
+            {
+                var parts = new List<string>();
+                foreach (var e in edges)
+                {
+                    var arrow = g.Directed ? "->" : "--";
+                    parts.Add(showWeights ? $"{arrow}{e.To.Name}(w={e.Weight})" : $"{arrow}{e.To.Name}");
+                }
+                Console.WriteLine($"  {u.Name} {string.Join(" ", parts)}");
+            }
+        }
+
+        public static void PrintAdjacencyMatrix(Graph g, bool showWeights = true, int width = 5)
+        {
+            // stable vertex order
+            var verts = new List<Vertex>(g.Vertices);
+            verts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
+            var index = new Dictionary<Vertex, int>();
+            for (int i = 0; i < verts.Count; i++) index[verts[i]] = i;
+
+            // build matrix (double? so we can print "." for no-edge)
+            var n = verts.Count;
+            var M = new double?[n, n];
+            for (int i = 0; i < n; i++)
+            {
+                if (!g.AdjList.TryGetValue(verts[i], out var list)) continue;
+                foreach (var e in list)
+                {
+                    var j = index[e.To];
+                    M[i, j] = e.Weight; // for undirected, both directions are already in AdjList
+                }
+            }
+
+            // header
+            Console.WriteLine();
+            Console.WriteLine("Adjacency Matrix:");
+            Console.Write("     ");
+            foreach (var v in verts) Console.Write(v.Name.PadLeft(width));
+            Console.WriteLine();
+
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(verts[i].Name.PadRight(4) + " ");
+                for (int j = 0; j < n; j++)
+                {
+                    if (M[i, j].HasValue)
+                    {
+                        if (showWeights) Console.Write($"{M[i, j].Value.ToString("0.##").PadLeft(width)}");
+                        else Console.Write($"{("1").PadLeft(width)}");
+                    }
+                    else Console.Write($"{(".").PadLeft(width)}");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine(g.Directed ? "Note: rows are FROM, columns are TO." : "Undirected matrix printed as stored.");
+        }
     }
 }

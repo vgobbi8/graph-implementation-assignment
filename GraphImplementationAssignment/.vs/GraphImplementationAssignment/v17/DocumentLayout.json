@@ -1,65 +1,53 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\",
+  "WorkspaceRootPath": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\cli\\graphio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:cli\\graphio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\models\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:models\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\graphimplementationassignment.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:graphimplementationassignment.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\cli\\resultprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:cli\\resultprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\dijkstraimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:dijkstraimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\eulerhamiltonisomorphism.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\eulerhamiltonisomorphism.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:eulerhamiltonisomorphism.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\kruskalmst.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:kruskalmst.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\eulerian.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:eulerian.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\astaralgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\hamiltonian.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:hamiltonian.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\isomorphism.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:isomorphism.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\astaralgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:astaralgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\bestfirstalgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:bestfirstalgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\cli\\resultprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:cli\\resultprinter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\depthfirstalgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:depthfirstalgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\cli\\graphio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:cli\\graphio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\models\\pathresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:models\\pathresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\models\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:models\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\breadthfirstalgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:breadthfirstalgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\models\\edge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\models\\edge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:models\\edge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|d:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\models\\vertex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\dijkstraimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:dijkstraimpl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|c:\\dev\\graph-implementation-assignment\\graphimplementationassignment\\models\\vertex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1B5585D9-8208-47E6-AD74-D6F01947ACE4}|GraphImplementationAssignment.csproj|solutionrelative:models\\vertex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -72,6 +60,10 @@
           "DockedWidth": 200,
           "SelectedChildIndex": 26,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{65ddf8c3-8f89-4077-a6c6-dbb8853aab13}"
@@ -98,10 +90,6 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
@@ -110,31 +98,7 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:134:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
             },
             {
               "$type": "Bookmark",
@@ -177,199 +141,154 @@
               "Name": "ST:137:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GraphIO.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\CLI\\GraphIO.cs",
-              "RelativeDocumentMoniker": "CLI\\GraphIO.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\CLI\\GraphIO.cs",
-              "RelativeToolTip": "CLI\\GraphIO.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAgwDAAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T20:29:01.947Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GraphImplementationAssignment",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
-              "RelativeDocumentMoniker": "GraphImplementationAssignment.csproj",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
-              "RelativeToolTip": "GraphImplementationAssignment.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-21T07:10:53.81Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "EulerHamiltonIsomorphism.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\EulerHamiltonIsomorphism.cs",
-              "RelativeDocumentMoniker": "EulerHamiltonIsomorphism.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\EulerHamiltonIsomorphism.cs",
-              "RelativeToolTip": "EulerHamiltonIsomorphism.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAA5wDkAAAAnAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Eulerian.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Eulerian.cs",
+              "RelativeDocumentMoniker": "Eulerian.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Eulerian.cs",
+              "RelativeToolTip": "Eulerian.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAAwFcAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T07:20:18.377Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "KruskalMST.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\KruskalMST.cs",
-              "RelativeDocumentMoniker": "KruskalMST.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\KruskalMST.cs",
-              "RelativeToolTip": "KruskalMST.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAIwEYAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T07:15:58.751Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AstarAlgorithm.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\AstarAlgorithm.cs",
-              "RelativeDocumentMoniker": "AstarAlgorithm.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\AstarAlgorithm.cs",
-              "RelativeToolTip": "AstarAlgorithm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T07:11:29.054Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BestFirstAlgorithm.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\BestFirstAlgorithm.cs",
-              "RelativeDocumentMoniker": "BestFirstAlgorithm.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\BestFirstAlgorithm.cs",
-              "RelativeToolTip": "BestFirstAlgorithm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T07:11:05.7Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "DepthFirstAlgorithm.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\DepthFirstAlgorithm.cs",
-              "RelativeDocumentMoniker": "DepthFirstAlgorithm.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\DepthFirstAlgorithm.cs",
-              "RelativeToolTip": "DepthFirstAlgorithm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T02:03:19.452Z",
+              "WhenOpened": "2025-09-22T20:42:10.436Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAiwD0AAAAMAAAAAAAAAA==",
+              "Title": "Hamiltonian.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Hamiltonian.cs",
+              "RelativeDocumentMoniker": "Hamiltonian.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Hamiltonian.cs",
+              "RelativeToolTip": "Hamiltonian.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T01:14:02.494Z",
+              "WhenOpened": "2025-09-22T20:41:58.419Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Isomorphism.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Isomorphism.cs",
+              "RelativeDocumentMoniker": "Isomorphism.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Isomorphism.cs",
+              "RelativeToolTip": "Isomorphism.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T20:40:44.197Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GraphIO.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\CLI\\GraphIO.cs",
+              "RelativeDocumentMoniker": "CLI\\GraphIO.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\CLI\\GraphIO.cs",
+              "RelativeToolTip": "CLI\\GraphIO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T17:36:50.741Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DijkstraImpl.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\DijkstraImpl.cs",
+              "RelativeDocumentMoniker": "DijkstraImpl.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\DijkstraImpl.cs",
+              "RelativeToolTip": "DijkstraImpl.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T17:35:40.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EulerHamiltonIsomorphism.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\EulerHamiltonIsomorphism.cs",
+              "RelativeDocumentMoniker": "EulerHamiltonIsomorphism.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\EulerHamiltonIsomorphism.cs",
+              "RelativeToolTip": "EulerHamiltonIsomorphism.cs",
+              "ViewState": "AgIAAJgBAAAAAAAAAAAowL4BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T17:16:49.618Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "PathResult.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\PathResult.cs",
-              "RelativeDocumentMoniker": "Models\\PathResult.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\PathResult.cs",
-              "RelativeToolTip": "Models\\PathResult.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T01:55:59.994Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "Graph.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Graph.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Graph.cs",
               "RelativeDocumentMoniker": "Models\\Graph.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Graph.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Graph.cs",
               "RelativeToolTip": "Models\\Graph.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAwBMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-17T23:56:01.637Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T23:56:01.637Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Edge.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Edge.cs",
+              "RelativeDocumentMoniker": "Models\\Edge.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Edge.cs",
+              "RelativeToolTip": "Models\\Edge.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-17T23:55:54.553Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ResultPrinter.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\CLI\\ResultPrinter.cs",
-              "RelativeDocumentMoniker": "CLI\\ResultPrinter.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\CLI\\ResultPrinter.cs",
-              "RelativeToolTip": "CLI\\ResultPrinter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAowD8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T20:28:43.764Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T23:54:22.83Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ResultPrinter.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\CLI\\ResultPrinter.cs",
+              "RelativeDocumentMoniker": "CLI\\ResultPrinter.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\CLI\\ResultPrinter.cs",
+              "RelativeToolTip": "CLI\\ResultPrinter.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAzwGoAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T19:18:10.802Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "DijkstraImpl.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\DijkstraImpl.cs",
-              "RelativeDocumentMoniker": "DijkstraImpl.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\DijkstraImpl.cs",
-              "RelativeToolTip": "DijkstraImpl.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Title": "AstarAlgorithm.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\AstarAlgorithm.cs",
+              "RelativeDocumentMoniker": "AstarAlgorithm.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\AstarAlgorithm.cs",
+              "RelativeToolTip": "AstarAlgorithm.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAApwEcAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-20T18:46:34.096Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-22T17:16:00.437Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "BreadthFirstAlgorithm.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\BreadthFirstAlgorithm.cs",
-              "RelativeDocumentMoniker": "BreadthFirstAlgorithm.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\BreadthFirstAlgorithm.cs",
-              "RelativeToolTip": "BreadthFirstAlgorithm.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAqwA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T00:52:55.354Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Edge.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Edge.cs",
-              "RelativeDocumentMoniker": "Models\\Edge.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Edge.cs",
-              "RelativeToolTip": "Models\\Edge.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-17T23:55:54.553Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 11,
               "Title": "Vertex.cs",
-              "DocumentMoniker": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Vertex.cs",
+              "DocumentMoniker": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Vertex.cs",
               "RelativeDocumentMoniker": "Models\\Vertex.cs",
-              "ToolTip": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Vertex.cs",
+              "ToolTip": "C:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\Models\\Vertex.cs",
               "RelativeToolTip": "Models\\Vertex.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAoAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-17T23:55:43.291Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-17T23:55:43.291Z"
             }
           ]
         }
