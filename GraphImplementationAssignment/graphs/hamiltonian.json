@@ -1,0 +1,133 @@
+{
+  "directed": false,
+  "vertices": [
+    {
+      "name": "A",
+      "adj": [
+        {
+          "To": "B",
+          "weight": 1
+        },
+        {
+          "To": "H",
+          "weight": 1
+        },
+        {
+          "To": "E",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "B",
+      "adj": [
+        {
+          "To": "A",
+          "weight": 1
+        },
+        {
+          "To": "C",
+          "weight": 1
+        },
+        {
+          "To": "F",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "C",
+      "adj": [
+        {
+          "To": "B",
+          "weight": 1
+        },
+        {
+          "To": "D",
+          "weight": 1
+        },
+        {
+          "To": "G",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "D",
+      "adj": [
+        {
+          "To": "C",
+          "weight": 1
+        },
+        {
+          "To": "E",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "E",
+      "adj": [
+        {
+          "To": "D",
+          "weight": 1
+        },
+        {
+          "To": "F",
+          "weight": 1
+        },
+        {
+          "To": "A",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "F",
+      "adj": [
+        {
+          "To": "E",
+          "weight": 1
+        },
+        {
+          "To": "G",
+          "weight": 1
+        },
+        {
+          "To": "B",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "G",
+      "adj": [
+        {
+          "To": "F",
+          "weight": 1
+        },
+        {
+          "To": "H",
+          "weight": 1
+        },
+        {
+          "To": "C",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "H",
+      "adj": [
+        {
+          "To": "G",
+          "weight": 1
+        },
+        {
+          "To": "A",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

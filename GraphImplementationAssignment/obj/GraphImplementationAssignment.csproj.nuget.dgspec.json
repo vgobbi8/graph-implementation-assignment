@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj": {}
+    "/Users/vgobbi.8/dev/graph-implementation-assignment/GraphImplementationAssignment/GraphImplementationAssignment.csproj": {}
   },
   "projects": {
-    "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj": {
+    "/Users/vgobbi.8/dev/graph-implementation-assignment/GraphImplementationAssignment/GraphImplementationAssignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
+        "projectUniqueName": "/Users/vgobbi.8/dev/graph-implementation-assignment/GraphImplementationAssignment/GraphImplementationAssignment.csproj",
         "projectName": "graph",
-        "projectPath": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\GraphImplementationAssignment.csproj",
-        "packagesPath": "C:\\Users\\Vinicius\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\graph-implementation-assignment\\GraphImplementationAssignment\\obj\\",
+        "projectPath": "/Users/vgobbi.8/dev/graph-implementation-assignment/GraphImplementationAssignment/GraphImplementationAssignment.csproj",
+        "packagesPath": "/Users/vgobbi.8/.nuget/packages/",
+        "outputPath": "/Users/vgobbi.8/dev/graph-implementation-assignment/GraphImplementationAssignment/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Vinicius\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/vgobbi.8/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,18 +32,18 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.4, )",
+              "autoReferenced": true
+            },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.22.1, )"
@@ -67,12 +60,31 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.osx-x64",
+              "version": "[8.0.4, 8.0.4]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-x64",
+              "version": "[8.0.4, 8.0.4]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.osx-x64",
+              "version": "[8.0.4, 8.0.4]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/8.0.4/libexec/sdk/8.0.104/PortableRuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "osx-x64": {
+          "#import": []
         }
       }
     }

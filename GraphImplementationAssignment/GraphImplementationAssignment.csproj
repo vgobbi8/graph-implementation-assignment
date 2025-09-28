@@ -14,4 +14,17 @@
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+  <EmbeddedResource Include="graphs\**\*.json" />
+</ItemGroup>
+
+<ItemGroup>
+  <Content Include="graphs\**\*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+  </Content>
+</ItemGroup>
+
+
+
 </Project>

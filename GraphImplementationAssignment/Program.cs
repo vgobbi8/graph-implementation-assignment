@@ -18,6 +18,13 @@ string lastStart = "A";
 string lastGoal = "H";
 string lastHeuristic = "euclid";  // for best-first / a*
 
+string DataPath(string fileName)
+{
+    var baseDir = AppContext.BaseDirectory;
+
+    return Path.Combine(baseDir, "graphs", fileName);
+}
+
 PrintBanner();
 
 while (true)
@@ -70,13 +77,13 @@ while (true)
 
     string suggestedFile = chosenAlgo switch
     {
-        "bfs" or "dfs" => "graphs/bfs_dfs.json",
-        "dijkstra" or "bestfirst" or "astar" => "graphs/dijkstra_astar_bestfirst.json",
-        "mst" => "graphs/mst_kruskal.json",
-        "euleru" => "graphs/euler_undirected.json",
-        "eulerd" => "graphs/euler_directed.json",
-        "hamilton" => "graphs/hamiltonian.json",
-        "iso" => "graphs/iso_g1.json",
+        "bfs" or "dfs" => DataPath("bfs_dfs.json"),
+        "dijkstra" or "bestfirst" or "astar" => DataPath("dijkstra_astar_bestfirst.json"),
+        "mst" => DataPath("mst_kruskal.json"),
+        "euleru" => DataPath("euler_undirected.json"),
+        "eulerd" => DataPath("euler_directed.json"),
+        "hamilton" => DataPath("hamiltonian.json"),
+        "iso" => DataPath("iso_g1.json"),
         _ => lastFile
     };
 
@@ -86,7 +93,11 @@ while (true)
     Dictionary<string, (double x, double y)> coords;
     while (true)
     {
-        var file = ReadConsoleLine($"file (.json or .csv) [suggested for {chosenAlgo}: {suggestedFile}]", defaultFile);
+        string defaultFileName = Path.GetFileName(defaultFile);
+        string suggestedFileName = Path.GetFileName(suggestedFile);
+
+        var fileName = ReadConsoleLine($"file (.json or .csv) [suggested for {chosenAlgo}: {suggestedFileName}]", defaultFileName);
+        var file = DataPath(fileName);
         if (file.Equals("q", StringComparison.OrdinalIgnoreCase)) Environment.Exit(0);
         try
         {
@@ -305,7 +316,7 @@ while (true)
     Console.WriteLine("Press ENTER to continue or 'q' to quit...");
     Console.ResetColor();
     var cont = Console.ReadLine();
-    if (string.Equals(cont, "q", StringComparison.OrdinalIgnoreCase)) 
+    if (string.Equals(cont, "q", StringComparison.OrdinalIgnoreCase))
         break;
 }
 

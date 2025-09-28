@@ -1,0 +1,141 @@
+{
+  "directed": false,
+  "vertices": [
+    {
+      "name": "A",
+      "adj": [
+        {
+          "To": "B",
+          "weight": 2
+        },
+        {
+          "To": "H",
+          "weight": 9
+        },
+        {
+          "To": "E",
+          "weight": 11
+        }
+      ]
+    },
+    {
+      "name": "B",
+      "adj": [
+        {
+          "To": "A",
+          "weight": 2
+        },
+        {
+          "To": "C",
+          "weight": 3
+        },
+        {
+          "To": "F",
+          "weight": 7
+        }
+      ]
+    },
+    {
+      "name": "C",
+      "adj": [
+        {
+          "To": "B",
+          "weight": 3
+        },
+        {
+          "To": "D",
+          "weight": 4
+        },
+        {
+          "To": "G",
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "name": "D",
+      "adj": [
+        {
+          "To": "C",
+          "weight": 4
+        },
+        {
+          "To": "E",
+          "weight": 5
+        },
+        {
+          "To": "H",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "name": "E",
+      "adj": [
+        {
+          "To": "D",
+          "weight": 5
+        },
+        {
+          "To": "F",
+          "weight": 6
+        },
+        {
+          "To": "A",
+          "weight": 11
+        }
+      ]
+    },
+    {
+      "name": "F",
+      "adj": [
+        {
+          "To": "E",
+          "weight": 6
+        },
+        {
+          "To": "G",
+          "weight": 2
+        },
+        {
+          "To": "B",
+          "weight": 7
+        }
+      ]
+    },
+    {
+      "name": "G",
+      "adj": [
+        {
+          "To": "F",
+          "weight": 2
+        },
+        {
+          "To": "H",
+          "weight": 3
+        },
+        {
+          "To": "C",
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "name": "H",
+      "adj": [
+        {
+          "To": "G",
+          "weight": 3
+        },
+        {
+          "To": "A",
+          "weight": 9
+        },
+        {
+          "To": "D",
+          "weight": 10
+        }
+      ]
+    }
+  ]
+}
