@@ -6,20 +6,20 @@ namespace GraphImplementationAssignment
 {
     public class DijkstraAlgorithm
     {
-        public PathResult ExecuteAlgorithm(Graph graph, Vertex start, Vertex goal)
+        public PathResult ExecuteAlgorithm(Graph graph, string start, string goal)
         {
             if (!graph.Vertices.Contains(start) || !graph.Vertices.Contains(goal))
                 return PathResult.NotFound();
 
-            var dist = new Dictionary<Vertex, double>();
+            var dist = new Dictionary<string, double>();
             var parent = new Dictionary<string, string>();
             foreach (var v in graph.Vertices) dist[v] = double.PositiveInfinity;
             dist[start] = 0.0;
 
             bool sawNegative = false;
-            var pq = new PriorityQueue<Vertex, double>();
+            var pq = new PriorityQueue<string, double>();
             pq.Enqueue(start, 0.0);
-            var visited = new HashSet<Vertex>();
+            var visited = new HashSet<string>();
 
             while (pq.Count > 0)
             {
@@ -29,8 +29,8 @@ namespace GraphImplementationAssignment
                 if (u == goal)
                 {
                     if (sawNegative)
-                        Console.WriteLine("WARNING: Negative edge detected; Dijkstra may be suboptimal. Consider Bellman–Ford.");
-                    return PathResult.BuildPathResult(start.Name, goal.Name, parent);
+                        Console.WriteLine("Negative edge detected");
+                    return PathResult.BuildPathResult(start, goal, parent);
                 }
 
                 if (!graph.AdjList.TryGetValue(u, out var edges)) continue;
@@ -43,7 +43,7 @@ namespace GraphImplementationAssignment
                     if (alt < dist[v])
                     {
                         dist[v] = alt;
-                        parent[v.Name] = u.Name;
+                        parent[v] = u;
                         pq.Enqueue(v, alt);
                     }
                 }

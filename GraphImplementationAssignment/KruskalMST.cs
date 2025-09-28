@@ -4,19 +4,11 @@ using System.Collections.Generic;
 
 namespace GraphImplementationAssignment
 {
-    /// <summary>
-    /// Kruskal's Minimum Spanning Tree (MST) using Union-Find (Disjoint Set Union).
-    /// - Works on undirected weighted graphs; if the Graph is marked Directed, we still
-    ///   treat edges as undirected (deduplicated) for the MST build.
-    /// - Returns the list of chosen edges (u,v,w) and the total weight.
-    /// - If the graph is disconnected, the result is a Minimum Spanning Forest (MSF).
-    /// </summary>
     public class KruskalMST
     {
         public MSTResult Build(Graph graph)
         {
-            // Collect unique undirected edges as (U, V, W)
-            var allEdges = new List<(Vertex U, Vertex V, double W)>();
+            var allEdges = new List<(string U, string V, double weight)>();
 
             foreach (var (u, list) in graph.AdjList)
             {
@@ -25,51 +17,46 @@ namespace GraphImplementationAssignment
                     var v = e.To;
                     if (u == v) continue; // ignore loops for MST
 
-                    // Deduplicate for undirected: only keep (minName, maxName)
-                    // This also handles Directed=true by forcing an undirected view here.
-                    var a = u.Name;
-                    var b = v.Name;
+                    var a = u;
+                    var b = v;
                     if (string.Compare(a, b, StringComparison.Ordinal) > 0)
                         (a, b) = (b, a);
 
-                    var U = new Vertex(a);
-                    var V = new Vertex(b);
+                    var U = new string(a);
+                    var V = new string(b);
                     allEdges.Add((U, V, e.Weight));
                 }
             }
 
-            // Remove duplicates that came from symmetric storage
             allEdges.Sort((x, y) =>
             {
-                int c = x.W.CompareTo(y.W);
+                int c = x.weight.CompareTo(y.weight);
                 if (c != 0) return c;
-                c = string.Compare(x.U.Name, y.U.Name, StringComparison.Ordinal);
+                c = string.Compare(x.U, y.U, StringComparison.Ordinal);
                 if (c != 0) return c;
-                return string.Compare(x.V.Name, y.V.Name, StringComparison.Ordinal);
+                return string.Compare(x.V, y.V, StringComparison.Ordinal);
             });
 
-            var dedup = new List<(Vertex U, Vertex V, double W)>();
+            var dedup = new List<(string U, string V, double weight)>();
             (string lastU, string lastV, double lastW) prev = ("", "", double.NaN);
             foreach (var e in allEdges)
             {
-                if (e.U.Name != prev.lastU || e.V.Name != prev.lastV || e.W != prev.lastW)
+                if (e.U != prev.lastU || e.V != prev.lastV || e.weight != prev.lastW)
                 {
                     dedup.Add(e);
-                    prev = (e.U.Name, e.V.Name, e.W);
+                    prev = (e.U, e.V, e.weight);
                 }
             }
 
-            // Union-Find init
             var uf = new UnionFind(graph.Vertices);
             var resultEdges = new List<(string From, string To, double Weight)>();
             double total = 0.0;
 
-            // Kruskal: scan edges in nondecreasing weight order
             foreach (var (U, V, W) in dedup)
             {
                 if (uf.Union(U, V))
                 {
-                    resultEdges.Add((U.Name, V.Name, W));
+                    resultEdges.Add((U, V, W));
                     total += W;
                 }
             }
@@ -79,10 +66,10 @@ namespace GraphImplementationAssignment
 
         private sealed class UnionFind
         {
-            private readonly Dictionary<Vertex, Vertex> parent = new();
-            private readonly Dictionary<Vertex, int> rank = new();
+            private readonly Dictionary<string, string> parent = new();
+            private readonly Dictionary<string, int> rank = new();
 
-            public UnionFind(IEnumerable<Vertex> vertices)
+            public UnionFind(IEnumerable<string> vertices)
             {
                 foreach (var v in vertices)
                 {
@@ -91,13 +78,13 @@ namespace GraphImplementationAssignment
                 }
             }
 
-            private Vertex Find(Vertex x)
+            private string Find(string x)
             {
                 if (!parent[x].Equals(x)) parent[x] = Find(parent[x]);
                 return parent[x];
             }
 
-            public bool Union(Vertex a, Vertex b)
+            public bool Union(string a, string b)
             {
                 var ra = Find(a);
                 var rb = Find(b);
@@ -113,9 +100,6 @@ namespace GraphImplementationAssignment
         }
     }
 
-    /// <summary>
-    /// Result of an MST/MSF computation.
-    /// </summary>
     public record MSTResult(List<(string From, string To, double Weight)> Edges, double TotalWeight)
     {
         public void Print()

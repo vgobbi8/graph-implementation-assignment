@@ -1,151 +1,513 @@
-﻿// File: Eulerian.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GraphImplementationAssignment.Models;
 
 namespace GraphImplementationAssignment
 {
     public static class Eulerian
     {
-        // Undirected: all nonzero-degree vertices are connected AND every degree is even
-        public static bool HasCircuitUndirected(Graph g)
+        public static bool HasCircuitUndirected(Graph graph)
         {
-            if (g.Directed) throw new InvalidOperationException("Use HasCircuitDirected for directed graphs.");
-            var deg = DegreeUndirected(g);
-            var active = deg.Where(kv => kv.Value > 0).Select(kv => kv.Key).ToList();
-            if (active.Count == 0) return true; // no edges -> vacuously Eulerian
-            if (!IsConnectedUndirected(g, active[0], v => deg[v] > 0)) return false;
-            return active.All(v => deg[v] % 2 == 0);
-        }
+            if (graph.Directed)
+                throw new InvalidOperationException("Use HasCircuitDirected for directed graphs.");
 
-        // Directed: in(v) == out(v) for all active vertices AND strongly connected on active set
-        public static bool HasCircuitDirected(Graph g)
-        {
-            if (!g.Directed) throw new InvalidOperationException("Use HasCircuitUndirected for undirected graphs.");
-            var indeg = InDegree(g); var outdeg = OutDegree(g);
-            var active = g.Vertices.Where(v => indeg.GetValueOrDefault(v, 0) + outdeg.GetValueOrDefault(v, 0) > 0).ToList();
-            if (active.Count == 0) return true;
-            if (active.Any(v => indeg.GetValueOrDefault(v, 0) != outdeg.GetValueOrDefault(v, 0))) return false;
-            return StronglyConnectedOnActive(g, active);
-        }
 
-        // Build a circuit if possible (Hierholzer)
-        public static List<string> BuildCircuit(Graph g)
-        {
-            if (g.Directed)
-                return HasCircuitDirected(g) ? HierholzerDirected(g) : new();
-            else
-                return HasCircuitUndirected(g) ? HierholzerUndirected(g) : new();
-        }
+            Dictionary<string, int> degree = CalculateUndirectedDegrees(graph);
 
-        // ===== Minimal helpers =====
-        private static Dictionary<Vertex, int> DegreeUndirected(Graph g)
-        {
-            var d = new Dictionary<Vertex, int>();
-            foreach (var v in g.Vertices) d[v] = 0;
-            foreach (var (u, list) in g.AdjList) d[u] += list.Count; // undirected stored twice
-            return d;
-        }
-        private static Dictionary<Vertex, int> OutDegree(Graph g)
-        {
-            var d = new Dictionary<Vertex, int>();
-            foreach (var v in g.Vertices)
-                d[v] = g.AdjList.TryGetValue(v, out var list) ? list.Count : 0;
-            return d;
-        }
-        private static Dictionary<Vertex, int> InDegree(Graph g)
-        {
-            var d = new Dictionary<Vertex, int>();
-            foreach (var v in g.Vertices) d[v] = 0;
-            foreach (var (u, list) in g.AdjList)
-                foreach (var e in list) d[e.To] = d.GetValueOrDefault(e.To, 0) + 1;
-            return d;
-        }
-        private static bool IsConnectedUndirected(Graph g, Vertex start, Func<Vertex, bool> active)
-        {
-            var st = new Stack<Vertex>(); var seen = new HashSet<Vertex>();
-            st.Push(start); seen.Add(start);
-            while (st.Count > 0)
+            List<string> activeVertices = new List<string>();
+            foreach (var vertex in graph.Vertices)
             {
-                var u = st.Pop();
-                foreach (var v in g.NeigboorsOf(u))
-                    if (active(v) && seen.Add(v)) st.Push(v);
+                if (degree[vertex] > 0)
+                    activeVertices.Add(vertex);
             }
-            foreach (var v in g.Vertices) if (active(v) && !seen.Contains(v)) return false;
+
+            if (activeVertices.Count == 0)
+                return true;
+
+            string startVertex = activeVertices[0];
+            bool isConnected = IsConnectedOnActiveUndirected(graph, startVertex, degree);
+
+            if (!isConnected)
+                return false;
+
+            foreach (var vertex in activeVertices)
+            {
+                if ((degree[vertex] % 2) != 0)
+                    return false;
+            }
+
             return true;
         }
-        private static bool StronglyConnectedOnActive(Graph g, List<Vertex> active)
+        public static bool HasCircuitDirected(Graph graph)
         {
-            bool ReachAllFrom(Vertex s, Func<Vertex, bool> dirOK)
+            if (!graph.Directed)
+                throw new InvalidOperationException("Use HasCircuitUndirected for undirected graphs.");
+
+
+            Dictionary<string, int> indegree = ComputeInDegrees(graph);
+            Dictionary<string, int> outdegree = ComputeOutDegrees(graph);
+
+            List<string> activeVertices = new List<string>();
+            foreach (var vertex in graph.Vertices)
             {
-                var st = new Stack<Vertex>(); var seen = new HashSet<Vertex>(); st.Push(s); seen.Add(s);
-                while (st.Count > 0)
-                {
-                    var u = st.Pop();
-                    if (!g.AdjList.TryGetValue(u, out var edges)) continue;
-                    foreach (var e in edges) if (active.Contains(e.To) && seen.Add(e.To)) st.Push(e.To);
-                }
-                return active.All(seen.Contains);
+                int deg = indegree.GetValueOrDefault(vertex, 0) + outdegree.GetValueOrDefault(vertex, 0);
+                if (deg > 0)
+                    activeVertices.Add(vertex);
+
             }
-            // check from one active vertex in G and in transpose(G)
-            var s0 = active[0];
-            if (!ReachAllFrom(s0, _ => true)) return false;
-            // transpose walk:
-            var st = new Stack<Vertex>(); var seen2 = new HashSet<Vertex>(); st.Push(s0); seen2.Add(s0);
-            while (st.Count > 0)
+
+            if (activeVertices.Count == 0)
+                return true;
+
+
+            foreach (var vertex in activeVertices)
             {
-                var u = st.Pop();
-                foreach (var (x, list) in g.AdjList)
-                    if (list.Any(e => e.To.Equals(u)) && active.Contains(x) && seen2.Add(x)) st.Push(x);
+                if (indegree.GetValueOrDefault(vertex, 0) != outdegree.GetValueOrDefault(vertex, 0))
+                    return false;
             }
-            return active.All(seen2.Contains);
+
+            bool stronglyConnected = IsStronglyConnectedOnActive(graph, activeVertices);
+            return stronglyConnected;
         }
 
-        // ===== Tiny Hierholzer implementations =====
-        private static List<string> HierholzerUndirected(Graph g)
+        public static List<string> BuildCircuit(Graph graph)
         {
-            var mult = new Dictionary<(string A, string B), int>(); // canonical (min,max)
-            foreach (var (u, list) in g.AdjList)
-                foreach (var e in list)
-                {
-                    var a = u.Name; var b = e.To.Name; if (a == b) continue;
-                    if (string.Compare(a, b, StringComparison.Ordinal) > 0) (a, b) = (b, a);
-                    mult[(a, b)] = mult.GetValueOrDefault((a, b), 0) + 1;
-                }
-
-            var start = g.Vertices.FirstOrDefault(v => g.AdjList[v].Count > 0) ?? g.Vertices.First();
-            var stack = new Stack<string>(); var circuit = new List<string>(); var cur = start.Name;
-            bool HasOut(string x) => mult.Any(kv => kv.Value > 0 && (kv.Key.A == x || kv.Key.B == x));
-            string Next(string x) { foreach (var kv in mult) if (kv.Value > 0) { if (kv.Key.A == x) return kv.Key.B; if (kv.Key.B == x) return kv.Key.A; } return x; }
-            void Use(string a, string b) { if (string.Compare(a, b, StringComparison.Ordinal) > 0) (a, b) = (b, a); if (mult.TryGetValue((a, b), out var c) && c > 0) mult[(a, b)] = c - 1; }
-
-            while (stack.Count > 0 || HasOut(cur))
+            if (graph.Directed)
             {
-                if (!HasOut(cur)) { circuit.Add(cur); cur = stack.Count > 0 ? stack.Pop() : cur; }
-                else { stack.Push(cur); var nxt = Next(cur); Use(cur, nxt); cur = nxt; }
+                if (HasCircuitDirected(graph))
+                    return BuildCircuitHierholzerDirected(graph);
             }
-            circuit.Add(cur); circuit.Reverse(); return circuit;
+            else
+            {
+                if (HasCircuitUndirected(graph))
+                    return BuildCircuitHierholzerUndirected(graph);
+            }
+            return new List<string>();
+
         }
 
-        private static List<string> HierholzerDirected(Graph g)
+
+        private static Dictionary<string, int> CalculateUndirectedDegrees(Graph graph)
         {
-            var mult = new Dictionary<(string U, string V), int>();
-            foreach (var (u, list) in g.AdjList)
-                foreach (var e in list) mult[(u.Name, e.To.Name)] = mult.GetValueOrDefault((u.Name, e.To.Name), 0) + 1;
+            Dictionary<string, int> degree = new Dictionary<string, int>(StringComparer.Ordinal);
 
-            var start = g.Vertices.FirstOrDefault(v => g.AdjList[v].Count > 0) ?? g.Vertices.First();
-            var stack = new Stack<string>(); var circuit = new List<string>(); var cur = start.Name;
-            bool HasOut(string u) => mult.Any(kv => kv.Value > 0 && kv.Key.U == u);
-            string Next(string u) { foreach (var kv in mult) if (kv.Value > 0 && kv.Key.U == u) return kv.Key.V; return u; }
-            void Use(string u, string v) { var k = (u, v); if (mult.TryGetValue(k, out var c) && c > 0) mult[k] = c - 1; }
-
-            while (stack.Count > 0 || HasOut(cur))
+            foreach (var vertex in graph.Vertices)
             {
-                if (!HasOut(cur)) { circuit.Add(cur); cur = stack.Count > 0 ? stack.Pop() : cur; }
-                else { stack.Push(cur); var nxt = Next(cur); Use(cur, nxt); cur = nxt; }
+                degree[vertex] = 0;
             }
-            circuit.Add(cur); circuit.Reverse(); return circuit;
+
+            foreach (var pair in graph.AdjList)
+            {
+                string from = pair.Key;
+                List<Edge> edges = pair.Value;
+
+                degree[from] = degree[from] + edges.Count;
+            }
+
+            return degree;
+        }
+
+        private static Dictionary<string, int> ComputeOutDegrees(Graph graph)
+        {
+            Dictionary<string, int> outdegree = new Dictionary<string, int>(StringComparer.Ordinal);
+
+            foreach (var vertex in graph.Vertices)
+            {
+                if (graph.AdjList.TryGetValue(vertex, out var edges))
+                    outdegree[vertex] = edges.Count;
+                else
+                    outdegree[vertex] = 0;
+
+            }
+
+            return outdegree;
+        }
+
+        private static Dictionary<string, int> ComputeInDegrees(Graph graph)
+        {
+            Dictionary<string, int> indegree = new Dictionary<string, int>(StringComparer.Ordinal);
+
+            foreach (var vertex in graph.Vertices)
+                indegree[vertex] = 0;
+
+
+            foreach (var pair in graph.AdjList)
+            {
+                List<Edge> edges = pair.Value;
+
+                for (int i = 0; i < edges.Count; i++)
+                {
+                    string to = edges[i].To;
+
+                    if (!indegree.ContainsKey(to))
+                        indegree[to] = 0;
+
+                    indegree[to] = indegree[to] + 1;
+                }
+            }
+
+            return indegree;
+        }
+
+        private static bool IsConnectedOnActiveUndirected(Graph graph, string startVertex, Dictionary<string, int> degree)
+        {
+            HashSet<string> visited = new HashSet<string>(StringComparer.Ordinal);
+            Stack<string> stack = new Stack<string>();
+
+            stack.Push(startVertex);
+            visited.Add(startVertex);
+
+            while (stack.Count > 0)
+            {
+                string current = stack.Pop();
+                List<string> neighbors = graph.NeigboorsOf(current);
+
+                for (int i = 0; i < neighbors.Count; i++)
+                {
+                    string neighbor = neighbors[i];
+
+                    if (degree[neighbor] > 0)
+                    {
+                        if (!visited.Contains(neighbor))
+                        {
+                            visited.Add(neighbor);
+                            stack.Push(neighbor);
+                        }
+                    }
+                }
+            }
+
+            foreach (var vertex in graph.Vertices)
+            {
+                if (degree[vertex] > 0 && !visited.Contains(vertex))
+                    return false;
+
+            }
+
+            return true;
+        }
+
+        private static bool IsStronglyConnectedOnActive(Graph graph, List<string> activeVertices)
+        {
+            string start = activeVertices[0];
+
+            // DFS on original graph
+            HashSet<string> visited = new HashSet<string>(StringComparer.Ordinal);
+            Stack<string> stack = new Stack<string>();
+
+            stack.Push(start);
+            visited.Add(start);
+
+            while (stack.Count > 0)
+            {
+                string current = stack.Pop();
+                List<string> neighbors = graph.NeigboorsOf(current);
+
+                for (int i = 0; i < neighbors.Count; i++)
+                {
+                    string neighbor = neighbors[i];
+
+                    if (!visited.Contains(neighbor))
+                    {
+                        visited.Add(neighbor);
+                        stack.Push(neighbor);
+                    }
+                }
+            }
+
+            foreach (var vertex in activeVertices)
+            {
+                if (!visited.Contains(vertex))
+                    return false;
+
+            }
+
+            // DFS on transpose graph
+            Dictionary<string, List<string>> transpose = BuildTranspose(graph);
+
+            HashSet<string> visitedTranspose = new HashSet<string>(StringComparer.Ordinal);
+            stack.Clear();
+            stack.Push(start);
+            visitedTranspose.Add(start);
+
+            while (stack.Count > 0)
+            {
+                string current = stack.Pop();
+
+                if (transpose.TryGetValue(current, out var backNeighbors))
+                {
+                    for (int i = 0; i < backNeighbors.Count; i++)
+                    {
+                        string neighbor = backNeighbors[i];
+
+                        if (!visitedTranspose.Contains(neighbor))
+                        {
+                            visitedTranspose.Add(neighbor);
+                            stack.Push(neighbor);
+                        }
+                    }
+                }
+            }
+
+            foreach (var vertex in activeVertices)
+            {
+                if (!visitedTranspose.Contains(vertex))
+                    return false;
+
+            }
+
+            return true;
+        }
+
+        private static Dictionary<string, List<string>> BuildTranspose(Graph graph)
+        {
+            Dictionary<string, List<string>> reverse = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+
+            foreach (var vertex in graph.Vertices)
+            {
+                reverse[vertex] = new List<string>();
+            }
+
+            foreach (var pair in graph.AdjList)
+            {
+                string from = pair.Key;
+                List<Edge> edges = pair.Value;
+
+                for (int i = 0; i < edges.Count; i++)
+                {
+                    string to = edges[i].To;
+                    reverse[to].Add(from);
+                }
+            }
+
+            return reverse;
+        }
+
+
+        public static List<string> BuildCircuitHierholzerUndirected(Graph graph)
+        {
+
+            Dictionary<(string A, string B), int> multiplicity = new Dictionary<(string A, string B), int>();
+
+            foreach (var pair in graph.AdjList)
+            {
+                string from = pair.Key;
+                List<Edge> edges = pair.Value;
+
+                for (int i = 0; i < edges.Count; i++)
+                {
+                    string to = edges[i].To;
+
+                    if (from == to)
+                        continue;
+
+                    string a = from;
+                    string b = to;
+
+                    if (string.Compare(a, b, StringComparison.Ordinal) > 0)
+                    {
+                        string tmp = a;
+                        a = b;
+                        b = tmp;
+                    }
+
+                    (string A, string B) key = (a, b);
+                    int current = multiplicity.GetValueOrDefault(key, 0);
+                    multiplicity[key] = current + 1;
+                }
+            }
+
+            string start = FindFirstVertexWithEdges(graph);
+            Stack<string> pathStack = new Stack<string>();
+            List<string> circuit = new List<string>();
+            string currentVertex = start;
+
+            while (pathStack.Count > 0 || UndirectedHasAvailableEdge(multiplicity, currentVertex))
+            {
+                bool hasOut = UndirectedHasAvailableEdge(multiplicity, currentVertex);
+
+                if (!hasOut)
+                {
+                    circuit.Add(currentVertex);
+
+                    if (pathStack.Count > 0)
+                    {
+                        currentVertex = pathStack.Pop();
+                    }
+                }
+                else
+                {
+                    pathStack.Push(currentVertex);
+
+                    string nextVertex = UndirectedPickNextNeighbor(multiplicity, currentVertex);
+                    UndirectedConsumeEdge(multiplicity, currentVertex, nextVertex);
+                    currentVertex = nextVertex;
+                }
+            }
+
+            circuit.Add(currentVertex);
+            circuit.Reverse();
+            return circuit;
+        }
+
+        private static string FindFirstVertexWithEdges(Graph graph)
+        {
+            foreach (var vertex in graph.Vertices)
+            {
+                if (graph.AdjList.TryGetValue(vertex, out var edges) && edges.Count > 0)
+                    return vertex;
+
+            }
+
+            // If there are no edges, return the first vertex (if any)
+            foreach (var vertex in graph.Vertices)
+                return vertex;
+
+
+            return string.Empty;
+        }
+
+        private static bool UndirectedHasAvailableEdge(Dictionary<(string A, string B), int> multiplicity, string vertex)
+        {
+            foreach (var entry in multiplicity)
+            {
+                (string A, string B) key = entry.Key;
+                int count = entry.Value;
+
+                if (count > 0 && (key.A == vertex || key.B == vertex))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static string UndirectedPickNextNeighbor(Dictionary<(string A, string B), int> multiplicity, string vertex)
+        {
+            foreach (var entry in multiplicity)
+            {
+                (string A, string B) key = entry.Key;
+                int count = entry.Value;
+
+                if (count > 0)
+                {
+                    if (key.A == vertex)
+                        return key.B;
+
+                    if (key.B == vertex)
+                        return key.A;
+
+                }
+            }
+
+            return vertex;
+        }
+
+        private static void UndirectedConsumeEdge(Dictionary<(string A, string B), int> multiplicity, string u, string v)
+        {
+            string a = u;
+            string b = v;
+
+            if (string.Compare(a, b, StringComparison.Ordinal) > 0)
+            {
+                string tmp = a;
+                a = b;
+                b = tmp;
+            }
+
+            (string A, string B) key = (a, b);
+
+            if (multiplicity.TryGetValue(key, out int count) && count > 0)
+                multiplicity[key] = count - 1;
+
+        }
+
+        
+        public static List<string> BuildCircuitHierholzerDirected(Graph graph)
+        {
+            Dictionary<(string U, string V), int> multiplicity = new Dictionary<(string U, string V), int>();
+
+            foreach (var pair in graph.AdjList)
+            {
+                string from = pair.Key;
+                List<Edge> edges = pair.Value;
+
+                for (int i = 0; i < edges.Count; i++)
+                {
+                    string to = edges[i].To;
+                    (string U, string V) key = (from, to);
+                    int current = multiplicity.GetValueOrDefault(key, 0);
+                    multiplicity[key] = current + 1;
+                }
+            }
+
+            string start = FindFirstVertexWithEdges(graph);
+            Stack<string> pathStack = new Stack<string>();
+            List<string> circuit = new List<string>();
+            string currentVertex = start;
+
+            while (pathStack.Count > 0 || DirectedHasOutgoingEdge(multiplicity, currentVertex))
+            {
+                bool hasOut = DirectedHasOutgoingEdge(multiplicity, currentVertex);
+
+                if (!hasOut)
+                {
+                    circuit.Add(currentVertex);
+
+                    if (pathStack.Count > 0)
+                        currentVertex = pathStack.Pop();
+
+                }
+                else
+                {
+                    pathStack.Push(currentVertex);
+
+                    string nextVertex = DirectedPickNextNeighbor(multiplicity, currentVertex);
+                    DirectedConsumeEdge(multiplicity, currentVertex, nextVertex);
+                    currentVertex = nextVertex;
+                }
+            }
+
+            circuit.Add(currentVertex);
+            circuit.Reverse();
+            return circuit;
+        }
+
+        private static bool DirectedHasOutgoingEdge(Dictionary<(string U, string V), int> multiplicity, string vertex)
+        {
+            foreach (var entry in multiplicity)
+            {
+                (string U, string V) key = entry.Key;
+                int count = entry.Value;
+
+                if (count > 0 && key.U == vertex)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static string DirectedPickNextNeighbor(Dictionary<(string U, string V), int> multiplicity, string vertex)
+        {
+            foreach (var entry in multiplicity)
+            {
+                (string U, string V) key = entry.Key;
+                int count = entry.Value;
+
+                if (count > 0 && key.U == vertex)
+                    return key.V;
+
+            }
+
+            return vertex;
+        }
+
+        private static void DirectedConsumeEdge(Dictionary<(string U, string V), int> multiplicity, string from, string to)
+        {
+            (string U, string V) key = (from, to);
+
+            if (multiplicity.TryGetValue(key, out int count) && count > 0)
+                multiplicity[key] = count - 1;
+
         }
     }
 }

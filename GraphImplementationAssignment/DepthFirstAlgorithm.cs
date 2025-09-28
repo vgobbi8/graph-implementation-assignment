@@ -10,24 +10,24 @@ namespace GraphImplementationAssignment
     public class DepthFirstAlgorithm
     {
 
-        public PathResult ExecuteAlgorithm(Graph graph, Vertex start, Vertex goal)
+        public PathResult ExecuteAlgorithm(Graph graph, string start, string goal)
         {
-            HashSet<Vertex> visited = [];
-            Stack<Vertex> stack = new();
+            HashSet<string> visited = [];
+            Stack<string> stack = new();
 
             visited.Add(start);
             stack.Push(start);
             var parent = new Dictionary<string, string>();
             while (stack.Count > 0)
             {
-                Vertex v = stack.Pop();
+                string v = stack.Pop();
                 if (v == goal)
-                    return PathResult.BuildPathResult(start.Name, goal.Name, parent); //Build path result after
+                    return PathResult.BuildPathResult(start, goal, parent); //Build path result after
                 foreach (var neighboor in graph.NeigboorsOf(v))
                 {
                     if (visited.Add(neighboor))
                     {
-                        parent[neighboor.Name] = v.Name;
+                        parent[neighboor] = v;
                         stack.Push(neighboor);
                     }
                 }

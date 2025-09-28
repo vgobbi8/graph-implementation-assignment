@@ -12,24 +12,24 @@ namespace GraphImplementationAssignment
 
 
 
-        public PathResult ExecuteAlgorithm(Graph graph, Vertex start, Vertex goal)
+        public PathResult ExecuteAlgorithm(Graph graph, string start, string goal)
         {
-            HashSet<Vertex> visited = [];
-            Queue<Vertex> queue = new Queue<Vertex>();
+            HashSet<string> visited = [];
+            Queue<string> queue = new Queue<string>();
 
             visited.Add(start);
             queue.Enqueue(start);
             var parent = new Dictionary<string, string>();
             while (queue.Count > 0)
             {
-                Vertex v = queue.Dequeue();
+                string v = queue.Dequeue();
                 if (v == goal)
-                    return PathResult.BuildPathResult(start.Name, goal.Name, parent); //Build path result after
+                    return PathResult.BuildPathResult(start, goal, parent); //Build path result after
                 foreach (var neighboor in graph.NeigboorsOf(v))
                 {
                     if (visited.Add(neighboor))
                     {
-                        parent[neighboor.Name] = v.Name;
+                        parent[neighboor] = v;
                         queue.Enqueue(neighboor);
                     }
                 }

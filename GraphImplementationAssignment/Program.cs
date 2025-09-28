@@ -70,13 +70,13 @@ while (true)
 
     string suggestedFile = chosenAlgo switch
     {
-        "bfs" or "dfs" => "bfs_dfs.json",
-        "dijkstra" or "bestfirst" or "astar" => "dijkstra_astar_bestfirst.json",
-        "mst" => "mst_kruskal.json",
-        "euleru" => "euler_undirected.json",
-        "eulerd" => "euler_directed.json",
-        "hamilton" => "hamiltonian.json",
-        "iso" => "iso_g1.json",
+        "bfs" or "dfs" => "graphs/bfs_dfs.json",
+        "dijkstra" or "bestfirst" or "astar" => "graphs/dijkstra_astar_bestfirst.json",
+        "mst" => "graphs/mst_kruskal.json",
+        "euleru" => "graphs/euler_undirected.json",
+        "eulerd" => "graphs/euler_directed.json",
+        "hamilton" => "graphs/hamiltonian.json",
+        "iso" => "graphs/iso_g1.json",
         _ => lastFile
     };
 
@@ -90,7 +90,7 @@ while (true)
         if (file.Equals("q", StringComparison.OrdinalIgnoreCase)) Environment.Exit(0);
         try
         {
-            (graph, coords) = GraphIO.LoadGraph(file); // <— your loader
+            graph = GraphIO.LoadFromJson(file); // <— your loader
             lastFile = file;
             break;
         }
@@ -100,15 +100,15 @@ while (true)
         }
     }
 
-    var vByName = graph.Vertices.ToDictionary(v => v.Name, v => v);
+    var vByName = graph.Vertices.ToDictionary(v => v, v => v);
 
 
     ResultPrinter.PrintGraphOverview(graph);
     ResultPrinter.PrintAdjacencyList(graph, showWeights: true);
 
-
     bool needsStartGoal = chosenAlgo is "bfs" or "dfs" or "dijkstra" or "bestfirst" or "astar";
-    Vertex start = null!, goal = null!;
+    string? start = null!;
+    string? goal = null!;
 
     if (needsStartGoal)
     {
@@ -129,7 +129,7 @@ while (true)
     }
 
     // Heuristic for GBFS/A*
-    Func<Vertex, Vertex, double> H = (v, g) => 0.0; // default
+    Func<string, string, double> H = (v, g) => 0.0; // default
     if (chosenAlgo is "bestfirst" or "astar")
     {
         var choice = ReadConsoleLine("heuristic [zero|deg|euclid]", lastHeuristic).ToLowerInvariant();
@@ -141,7 +141,7 @@ while (true)
             "deg" or "degree" => (v, g) => -(graph.AdjList.TryGetValue(v, out var list) ? list.Count : 0),
             "euclid" => (v, g) =>
             {
-                if (!coords.TryGetValue(v.Name, out var a) || !coords.TryGetValue(g.Name, out var b)) return 0.0;
+                if (!graph.Coords.TryGetValue(v, out var a) || !graph.Coords.TryGetValue(g, out var b)) return 0.0;
                 var dx = a.x - b.x; var dy = a.y - b.y; return Math.Sqrt(dx * dx + dy * dy);
             }
             ,
@@ -206,12 +206,12 @@ while (true)
                         Warn("Graph is directed; load an UNDIRECTED graph for euleru.");
                     else
                     {
-                        bool ok = EulerHamiltonIsomorphism.HasEulerianCircuitUndirected(graph);
+                        bool ok = Eulerian.HasCircuitUndirected(graph);
                         Console.WriteLine("Algorithm: EULERIAN (Undirected)");
                         Console.WriteLine($"Eulerian circuit exists: {ok}");
                         if (ok)
                         {
-                            var circuit = EulerHamiltonIsomorphism.BuildEulerianCircuit(graph);
+                            var circuit = Eulerian.BuildCircuit(graph);
                             Console.WriteLine("Circuit:");
                             Console.WriteLine("  " + string.Join(" -> ", circuit));
                         }
@@ -225,12 +225,12 @@ while (true)
                         Warn("Graph is undirected; load a DIRECTED graph for eulerd.");
                     else
                     {
-                        bool ok = EulerHamiltonIsomorphism.HasEulerianCircuitDirected(graph);
+                        bool ok = Eulerian.HasCircuitDirected(graph);
                         Console.WriteLine("Algorithm: EULERIAN (Directed)");
                         Console.WriteLine($"Eulerian circuit exists: {ok}");
                         if (ok)
                         {
-                            var circuit = EulerHamiltonIsomorphism.BuildEulerianCircuit(graph);
+                            var circuit = Eulerian.BuildCircuit(graph);
                             Console.WriteLine("Circuit:");
                             Console.WriteLine("  " + string.Join(" -> ", circuit));
                         }
@@ -241,7 +241,7 @@ while (true)
             case "hamilton":
                 {
                     Console.WriteLine("Algorithm: HAMILTONIAN");
-                    var cycle = EulerHamiltonIsomorphism.HamiltonianCircuit(graph);
+                    var cycle = Hamiltonian.FindCycle(graph);
                     Console.WriteLine($"Found: {(cycle.Count > 0)}");
                     Console.WriteLine("Cycle: " + (cycle.Count == 0 ? "-" : string.Join(" -> ", cycle)));
                     output = new { algorithm = "hamilton", found = cycle.Count > 0, cycle };
@@ -252,13 +252,13 @@ while (true)
                     Graph g2; Dictionary<string, (double, double)> coords2;
                     while (true)
                     {
-                        var file2 = ReadConsoleLine("second file for isomorphism (g2)", "iso_g2.json");
+                        var file2 = ReadConsoleLine("second file for isomorphism (g2)", "graphs/iso_g2.json");
                         if (file2.Equals("q", StringComparison.OrdinalIgnoreCase)) return 0;
-                        try { (g2, coords2) = GraphIO.LoadGraph(file2); break; }
+                        try { g2 = GraphIO.LoadFromJson(file2); break; }
                         catch (Exception ex) { Warn($"Failed to load '{file2}': {ex.Message}"); }
                     }
 
-                    var (ok, mapping) = EulerHamiltonIsomorphism.IsIsomorphic(graph, g2);
+                    var (ok, mapping) = Isomorphism.AreIsomorphic(graph, g2);
                     Console.WriteLine("Algorithm: ISOMORPHISM");
                     Console.WriteLine($"Isomorphic: {ok}");
                     if (ok && mapping.Count > 0)
@@ -305,7 +305,8 @@ while (true)
     Console.WriteLine("Press ENTER to continue or 'q' to quit...");
     Console.ResetColor();
     var cont = Console.ReadLine();
-    if (string.Equals(cont, "q", StringComparison.OrdinalIgnoreCase)) break;
+    if (string.Equals(cont, "q", StringComparison.OrdinalIgnoreCase)) 
+        break;
 }
 
 Console.WriteLine("Bye!");

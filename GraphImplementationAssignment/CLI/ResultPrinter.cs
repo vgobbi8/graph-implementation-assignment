@@ -32,38 +32,54 @@ namespace GraphImplementationAssignment.CLI
 
         public static object ToJsonObject(string algo, PathResult r, Graph g, bool includeWeighted = false)
         {
-            var obj = new Dictionary<string, object>
+            if (!includeWeighted)
             {
-                ["algorithm"] = algo,
-                ["found"] = r.Found,
-                ["path"] = r.Path,
-                ["edgesCost"] = r.Cost,
+                return new
+                {
+                    algorithm = algo,
+                    found = r.Found,
+                    path = r.Path,
+                    edgesCost = r.Cost
+                };
+
+            }
+            return new
+            {
+
+                algorithm = algo,
+                found = r.Found,
+                path = r.Path,
+                edgesCost = r.Cost,
+                weightedCost = WeightedCost(g, r.Path ?? new List<string>())
             };
-            if (includeWeighted)
-                obj["weightedCost"] = WeightedCost(g, r.Path ?? new List<string>());
-            return obj;
         }
 
         public static object ToJsonObject(string algo, MSTResult mst)
         {
-            return new Dictionary<string, object>
+            return new
             {
-                ["algorithm"] = algo,
-                ["edges"] = mst.Edges,
-                ["totalWeight"] = mst.TotalWeight
+                algorithm = algo,
+                edges = mst.Edges,
+                totalWeight = mst.TotalWeight
             };
         }
 
         private static double WeightedCost(Graph g, IReadOnlyList<string> names)
         {
             double sum = 0.0;
+
             for (int i = 0; i + 1 < names.Count; i++)
             {
-                var a = new Vertex(names[i]);
-                var b = new Vertex(names[i + 1]);
-                if (!g.AdjList.TryGetValue(a, out var list)) return double.PositiveInfinity;
+                var a = names[i];
+                var b = names[i + 1];
+
+                if (!g.AdjList.TryGetValue(a, out var list))
+                    return double.PositiveInfinity;
+
                 var edge = list.FirstOrDefault(e => e.To.Equals(b));
-                if (edge == default) return double.PositiveInfinity;
+                if (edge == default)
+                    return double.PositiveInfinity;
+
                 sum += edge.Weight;
             }
             return sum;
@@ -77,8 +93,12 @@ namespace GraphImplementationAssignment.CLI
 
             var vertexCount = g.Vertices.Count;
             var edgeCount = 0;
-            foreach (var (_, list) in g.AdjList) edgeCount += list.Count;
-            if (!g.Directed) edgeCount /= 2; // undirected stored twice
+
+            foreach (var (_, list) in g.AdjList)
+                edgeCount += list.Count;
+
+            if (!g.Directed)
+                edgeCount /= 2;
 
             Console.WriteLine($"Vertices: {vertexCount}");
             Console.WriteLine($"Edges:    {edgeCount}");
@@ -94,55 +114,64 @@ namespace GraphImplementationAssignment.CLI
                 foreach (var e in edges)
                 {
                     var arrow = g.Directed ? "->" : "--";
-                    parts.Add(showWeights ? $"{arrow}{e.To.Name}(w={e.Weight})" : $"{arrow}{e.To.Name}");
+                    parts.Add(showWeights ? $"{arrow}{e.To}(w={e.Weight})" : $"{arrow}{e.To}");
                 }
-                Console.WriteLine($"  {u.Name} {string.Join(" ", parts)}");
+                Console.WriteLine($"  {u} {string.Join(" ", parts)}");
             }
         }
 
         public static void PrintAdjacencyMatrix(Graph g, bool showWeights = true, int width = 5)
         {
-            // stable vertex order
-            var verts = new List<Vertex>(g.Vertices);
-            verts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
-            var index = new Dictionary<Vertex, int>();
-            for (int i = 0; i < verts.Count; i++) index[verts[i]] = i;
+            var verts = new List<string>(g.Vertices);
 
-            // build matrix (double? so we can print "." for no-edge)
+            verts.Sort((a, b) => string.Compare(a, b, StringComparison.Ordinal));
+
+            var index = new Dictionary<string, int>();
+
+            for (int i = 0; i < verts.Count; i++)
+                index[verts[i]] = i;
+
             var n = verts.Count;
-            var M = new double?[n, n];
+            var matrix = new double?[n, n];
             for (int i = 0; i < n; i++)
             {
-                if (!g.AdjList.TryGetValue(verts[i], out var list)) continue;
+                if (!g.AdjList.TryGetValue(verts[i], out var list))
+                    continue;
                 foreach (var e in list)
                 {
                     var j = index[e.To];
-                    M[i, j] = e.Weight; // for undirected, both directions are already in AdjList
+                    matrix[i, j] = e.Weight;
                 }
             }
 
-            // header
             Console.WriteLine();
             Console.WriteLine("Adjacency Matrix:");
             Console.Write("     ");
-            foreach (var v in verts) Console.Write(v.Name.PadLeft(width));
+            foreach (var v in verts)
+            {
+                Console.Write(v.PadLeft(width));
+            }
+
             Console.WriteLine();
 
             for (int i = 0; i < n; i++)
             {
-                Console.Write(verts[i].Name.PadRight(4) + " ");
+                Console.Write(verts[i].PadRight(4) + " ");
                 for (int j = 0; j < n; j++)
                 {
-                    if (M[i, j].HasValue)
+                    if (matrix[i, j].HasValue)
                     {
-                        if (showWeights) Console.Write($"{M[i, j].Value.ToString("0.##").PadLeft(width)}");
-                        else Console.Write($"{("1").PadLeft(width)}");
+                        if (showWeights)
+                            Console.Write($"{matrix[i, j].Value.ToString("0.##").PadLeft(width)}");
+                        else
+                            Console.Write($"{("1").PadLeft(width)}");
                     }
-                    else Console.Write($"{(".").PadLeft(width)}");
+                    else
+                        Console.Write($"{(".").PadLeft(width)}");
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine(g.Directed ? "Note: rows are FROM, columns are TO." : "Undirected matrix printed as stored.");
+            Console.WriteLine(g.Directed ? "rows are FROM, columns are TO" : "Undirected matrix printed as stored.");
         }
     }
 }

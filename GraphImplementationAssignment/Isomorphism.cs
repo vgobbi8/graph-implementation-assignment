@@ -1,4 +1,4 @@
-﻿// File: Isomorphism.cs
+﻿// File: IsomorphismSimple.cs
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,83 +8,168 @@ namespace GraphImplementationAssignment
 {
     public static class Isomorphism
     {
-        // Small graphs: quick degree filters + backtracking on buckets.
-        public static (bool ok, Dictionary<string, string> map) AreIsomorphic(Graph g1, Graph g2, int cutoff = 9)
+        public static (bool ok, Dictionary<string, string> map) AreIsomorphic(Graph g1, Graph g2)
         {
-            if (g1.Directed != g2.Directed) return (false, new());
-            if (g1.Vertices.Count != g2.Vertices.Count) return (false, new());
-            if (EdgeCount(g1) != EdgeCount(g2)) return (false, new());
+            //Simple graph - can't be directed
+            if (g1.Directed || g2.Directed)
+                return (false, new Dictionary<string, string>());
 
-            // degree signature must match
-            var sig1 = Signatures(g1);
-            var sig2 = Signatures(g2);
-            var groups1 = sig1.GroupBy(kv => kv.Value).Select(g => g.Select(kv => kv.Key).ToList()).ToList();
-            var groups2 = sig2.GroupBy(kv => kv.Value).Select(g => g.Select(kv => kv.Key).ToList()).ToList();
-            var sizes1 = groups1.Select(x => x.Count).OrderBy(x => x).ToList();
-            var sizes2 = groups2.Select(x => x.Count).OrderBy(x => x).ToList();
-            if (!sizes1.SequenceEqual(sizes2)) return (false, new());
+            if (g1.Vertices.Count != g2.Vertices.Count)
+                return (false, new Dictionary<string, string>());
 
-            if (g1.Vertices.Count > cutoff) return (false, new()); // keep it safe/simple
+            if (g1.EdgeCount() != g2.EdgeCount())
+                return (false, new Dictionary<string, string>());
 
-            var map = new Dictionary<Vertex, Vertex>();
-            bool Backtrack(int i, List<List<Vertex>> G1, List<List<Vertex>> G2)
+            var deg1 = BuildDegrees(g1);
+            var deg2 = BuildDegrees(g2);
+
+            if (!SameDegreeMultiset(g1, g2, deg1, deg2))
+                return (false, new Dictionary<string, string>());
+
+
+            var v1 = g1.Vertices.ToList(); // order can be arbitrary
+            var map = new Dictionary<string, string>(StringComparer.Ordinal);
+            var used = new HashSet<string>(StringComparer.Ordinal);
+
+            bool ok = Backtrack(g1, g2, v1, 0, map, used, deg1, deg2);
+
+            if (!ok)
+                return (false, new Dictionary<string, string>());
+
+            return (true, new Dictionary<string, string>(map));
+        }
+
+        private static bool Backtrack(
+            Graph g1,
+            Graph g2,
+            List<string> v1,
+            int index,
+            Dictionary<string, string> map,
+            HashSet<string> used,
+            Dictionary<string, int> deg1,
+            Dictionary<string, int> deg2)
+        {
+            if (index == v1.Count)
+                return true;
+
+            string u = v1[index];
+            int d = deg1[u];
+
+            // Candidates in g2: unused vertices with the same degree
+            foreach (var v in g2.Vertices)
             {
-                if (i == G1.Count) return StructureMatches(g1, g2, map);
-                var A = G1[i];
-                int j = G2.FindIndex(B => B.Count == A.Count);
-                if (j < 0) return false;
-                var B = G2[j];
+                if (used.Contains(v))
+                    continue;
 
-                foreach (var perm in Permute(B))
-                {
-                    // try mapping A[k] -> perm[k]
-                    for (int k = 0; k < A.Count; k++) map[A[k]] = perm[k];
-                    if (StructureMatches(g1, g2, map) && Backtrack(i + 1, G1, RemoveAt(G2, j))) return true;
-                    for (int k = 0; k < A.Count; k++) map.Remove(A[k]);
-                }
-                return false;
+
+                if (deg2[v] != d)
+                    continue;
+
+
+                if (!ConsistentWithMappedNeighbors(g1, g2, u, v, map))
+                    continue;
+
+
+                map[u] = v;
+                used.Add(v);
+
+                bool deeper = Backtrack(g1, g2, v1, index + 1, map, used, deg1, deg2);
+
+                if (deeper)
+                    return true;
+
+                map.Remove(u);
+                used.Remove(v);
             }
 
-            var ok = Backtrack(0, groups1, groups2);
-            return (ok, ok ? map.ToDictionary(k => k.Key.Name, v => v.Value.Name) : new());
+            return false;
         }
 
-        // ===== minimal helpers =====
-        private static int EdgeCount(Graph g) => g.AdjList.Sum(p => p.Value.Count) / (g.Directed ? 1 : 2);
-        private static Dictionary<Vertex, (int indeg, int outdeg)> Signatures(Graph g)
+        private static bool ConsistentWithMappedNeighbors(
+            Graph g1,
+            Graph g2,
+            string u1,
+            string u2,
+            IReadOnlyDictionary<string, string> map)
         {
-            var indeg = new Dictionary<Vertex, int>(); var outdeg = new Dictionary<Vertex, int>();
-            foreach (var v in g.Vertices) { indeg[v] = 0; outdeg[v] = g.AdjList.TryGetValue(v, out var l) ? l.Count : 0; }
-            foreach (var (u, list) in g.AdjList) foreach (var e in list) indeg[e.To] = indeg.GetValueOrDefault(e.To, 0) + 1;
-            return g.Vertices.ToDictionary(v => v, v => (indeg[v], outdeg[v]));
-        }
-        private static bool StructureMatches(Graph g1, Graph g2, Dictionary<Vertex, Vertex> map)
-        {
-            // Check mapped edges: for each u->v in g1, requires map(u)->map(v) in g2
-            foreach (var (u, list) in g1.AdjList)
-                foreach (var e in list)
-                {
-                    if (!map.TryGetValue(u, out var mu) || !map.TryGetValue(e.To, out var mv)) return false;
-                    if (!g2.AdjList.TryGetValue(mu, out var l2) || !l2.Any(x => x.To.Equals(mv))) return false;
-                }
+            // For each already-mapped vertex w1, edge presence must match between (u1, w1) and (u2, map[w1]).
+            foreach (var w1 in map.Keys)
+            {
+                string w2 = map[w1];
+
+                bool e1 = g1.HasEdge(u1, w1);
+                bool e2 = g2.HasEdge(u2, w2);
+
+                if (e1 != e2)
+                    return false;
+
+            }
+
             return true;
         }
 
-        private static IEnumerable<IReadOnlyList<T>> Permute<T>(IList<T> xs)
+        private static Dictionary<string, int> BuildDegrees(Graph g)
         {
-            int n = xs.Count; var used = new bool[n]; var cur = new T[n];
-            bool Dfs(int d)
+            var deg = new Dictionary<string, int>(StringComparer.Ordinal);
+
+            foreach (var v in g.Vertices)
             {
-                if (d == n) { yield return cur.ToArray(); yield return true; }
-                for (int i = 0; i < n; i++) if (!used[i]) { used[i] = true; cur[d] = xs[i]; if (Dfs(d + 1)) { } used[i] = false; }
-                yield return false;
+                if (g.AdjList.TryGetValue(v, out var list))
+                    deg[v] = list.Count;
+                else
+                    deg[v] = 0;
+
             }
-            Dfs(0); // iterator trick
-            yield break;
+
+            return deg;
         }
-        private static List<List<T>> RemoveAt<T>(List<List<T>> L, int j)
+
+        private static bool SameDegreeMultiset(
+            Graph g1,
+            Graph g2,
+            Dictionary<string, int> deg1,
+            Dictionary<string, int> deg2)
         {
-            var copy = new List<List<T>>(L); copy.RemoveAt(j); return copy;
+            var count1 = new Dictionary<int, int>();
+            var count2 = new Dictionary<int, int>();
+
+            foreach (var v in g1.Vertices)
+            {
+                int d = deg1[v];
+
+                if (!count1.ContainsKey(d))
+                    count1[d] = 0;
+
+
+                count1[d] = count1[d] + 1;
+            }
+
+            foreach (var v in g2.Vertices)
+            {
+                int d = deg2[v];
+
+                if (!count2.ContainsKey(d))
+                    count2[d] = 0;
+
+
+                count2[d] = count2[d] + 1;
+            }
+
+            if (count1.Count != count2.Count)
+                return false;
+
+
+            foreach (var kv in count1)
+            {
+                if (!count2.TryGetValue(kv.Key, out var c))
+                    return false;
+
+                if (c != kv.Value)
+                    return false;
+
+            }
+
+            return true;
         }
     }
 }

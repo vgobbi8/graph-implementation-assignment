@@ -9,8 +9,9 @@ namespace GraphImplementationAssignment.Models
     public class Graph
     {
         public bool Directed { get; set; }
-        public HashSet<Vertex> Vertices { get; set; } = new HashSet<Vertex>();
-        public Dictionary<Vertex, List<Edge>> AdjList { get; set; } = new();
+        public HashSet<string> Vertices { get; set; } = new HashSet<string>();
+        public Dictionary<string, List<Edge>> AdjList { get; set; } = new();
+        public Dictionary<string, (double x, double y)> Coords { get; set; } = new();
 
         public Graph(bool directed = false)
         {
@@ -18,12 +19,12 @@ namespace GraphImplementationAssignment.Models
         }
 
 
-        public void AddVertex(Vertex vertex)
+        public void AddVertex(string vertex)
         {
             if (Vertices.Add(vertex)) AdjList[vertex] = new();
         }
 
-        public void AddEdge(Vertex from, Vertex to, double w = 1.0)
+        public void AddEdge(string from, string to, double w = 1.0)
         {
             AddVertex(from);
             AddVertex(to);
@@ -32,12 +33,6 @@ namespace GraphImplementationAssignment.Models
             if (!Directed && from != to) AdjList[to].Add(new Edge(from, w));
         }
 
-        public void AddEdge(string from, string to, double w = 1.0)
-        {
-            var vFrom = new Vertex(from);
-            var vTo = new Vertex(to);
-            AddEdge(vFrom, vTo, w);
-        }
         public int EdgeCount()
         {
             // For undirected graphs, each edge is stored twice (unless loop)
@@ -48,24 +43,22 @@ namespace GraphImplementationAssignment.Models
 
         private int LoopCount()
         {
-            // Count loops in undirected graphs once
             var loops = 0;
             foreach (var (u, list) in AdjList)
                 foreach (var (v, _) in list)
                     if (u == v) loops++;
-            return loops; // stored once per endpoint; OK to return as-is
+            return loops;
         }
 
-        // Degree for undirected; for directed you typically use In/Out
-        public int Degree(Vertex v)
+        public int Degree(string v)
         {
             if (Directed) throw new InvalidOperationException("Use InDegree/OutDegree for directed graphs.");
             return AdjList[v].Count; // includes loops once here; adjust if you want to count loop as 2
         }
 
-        public int OutDegree(Vertex v) => AdjList[v].Count;
+        public int OutDegree(string v) => AdjList[v].Count;
 
-        public int InDegree(Vertex v)
+        public int InDegree(string v)
         {
             var indeg = 0;
             foreach (var (u, list) in AdjList)
@@ -83,10 +76,43 @@ namespace GraphImplementationAssignment.Models
             return max;
         }
 
-        public List<Vertex> NeigboorsOf(Vertex v)
+        public List<string> NeigboorsOf(string v)
         {
-            var list = new List<Vertex>();
+            var list = new List<string>();
             return AdjList[v].Select(x => x.To).ToList();
         }
+
+        public bool HasEdge(string from, string to)
+        {
+            bool forwardExists = false;
+
+            if (AdjList.TryGetValue(from, out var list))
+            {
+                forwardExists = list.Any(e => e.To == to);
+            }
+
+            if (forwardExists)
+            {
+                return true;
+            }
+
+            bool reverseNeeded = !Directed && from != to;
+
+            if (reverseNeeded)
+            {
+                if (AdjList.TryGetValue(to, out var reverseList))
+                {
+                    bool reverseExists = reverseList.Any(e => e.To == from);
+
+                    if (reverseExists)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
     }
 }
