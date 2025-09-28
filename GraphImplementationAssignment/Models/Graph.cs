@@ -53,7 +53,7 @@ namespace GraphImplementationAssignment.Models
         public int Degree(string v)
         {
             if (Directed) throw new InvalidOperationException("Use InDegree/OutDegree for directed graphs.");
-            return AdjList[v].Count; // includes loops once here; adjust if you want to count loop as 2
+            return AdjList[v].Count; 
         }
 
         public int OutDegree(string v) => AdjList[v].Count;
@@ -67,7 +67,7 @@ namespace GraphImplementationAssignment.Models
             return indeg;
         }
 
-        public int GraphDegree() // max vertex degree (undirected)
+        public int GraphDegree()
         {
             if (Directed) throw new InvalidOperationException("GraphDegree is for undirected graphs. Use max(In/Out).");
             var max = 0;

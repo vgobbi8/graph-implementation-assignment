@@ -15,7 +15,7 @@ namespace GraphImplementationAssignment
                 foreach (var e in list)
                 {
                     var v = e.To;
-                    if (u == v) continue; // ignore loops for MST
+                    if (u == v) continue; 
 
                     var a = u;
                     var b = v;
@@ -88,7 +88,7 @@ namespace GraphImplementationAssignment
             {
                 var ra = Find(a);
                 var rb = Find(b);
-                if (ra.Equals(rb)) return false; // already connected
+                if (ra.Equals(rb)) return false; 
 
                 var raRank = rank[ra];
                 var rbRank = rank[rb];
