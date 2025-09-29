@@ -24,6 +24,18 @@ string DataPath(string fileName)
 
     return Path.Combine(baseDir, "graphs", fileName);
 }
+string DataOutputPath(string fileName)
+{
+    var baseDir = AppContext.BaseDirectory;
+    var outputDir = Path.Combine(baseDir, "graphs_outputs");
+    if (!Directory.Exists(outputDir))
+    {
+        Directory.CreateDirectory(outputDir);
+    }
+
+    return Path.Combine(baseDir, "graphs_outputs", fileName);
+}
+
 
 PrintBanner();
 
@@ -263,7 +275,8 @@ while (true)
                     Graph g2; Dictionary<string, (double, double)> coords2;
                     while (true)
                     {
-                        var file2 = ReadConsoleLine("second file for isomorphism (g2)", "graphs/iso_g2.json");
+                        var filename2 = ReadConsoleLine("second file for isomorphism (g2)", "iso_g2.json");
+                        var file2 = DataPath(filename2);
                         if (file2.Equals("q", StringComparison.OrdinalIgnoreCase)) return 0;
                         try { g2 = GraphIO.LoadFromJson(file2); break; }
                         catch (Exception ex) { Warn($"Failed to load '{file2}': {ex.Message}"); }
@@ -295,7 +308,8 @@ while (true)
     var save = ReadConsoleLine("Save output JSON? [y/N]", "n").ToLowerInvariant();
     if (save is "y" or "yes")
     {
-        var outPath = ReadConsoleLine("output file", $"{chosenAlgo}_result.json");
+        var outFileName = ReadConsoleLine("output file", $"{chosenAlgo}_result.json");
+        var outPath = DataOutputPath(outFileName);
         if (!outPath.Equals("q", StringComparison.OrdinalIgnoreCase))
         {
             try
